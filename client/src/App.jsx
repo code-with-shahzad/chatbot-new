@@ -27,7 +27,6 @@ const App = () => {
     }),
   });
   const submitChatMessage = useCallback(async (data) => {
-    console.log(data, 'jjjjjjjjjj');
     setSSbowaData((prevData) => [...prevData, { sentByUser: true, text: data }]);
     const formData = new FormData();
     formData.append('prompt', data);
