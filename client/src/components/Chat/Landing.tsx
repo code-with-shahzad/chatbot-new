@@ -50,9 +50,9 @@ export default function Landing({ Header }: { Header?: ReactNode }) {
         <div className="relative h-full">
           <div className="absolute left-0 right-0">{Header && Header}</div>
           <div className="flex h-full flex-col items-center justify-center">
-            <div className="relative mb-3 h-[72px] w-[72px]">
+            <div className="relative mb-3 h-[60px] w-[60px]">
               <div className={className}>
-                {endpoint &&
+                {/* {endpoint &&
                   Icon &&
                   Icon({
                     size: 41,
@@ -62,7 +62,8 @@ export default function Landing({ Header }: { Header?: ReactNode }) {
                     iconURL: iconURL,
                     assistantName,
                     avatar,
-                  })}
+                  })} */}
+                <img className='rounded-full' src="/assets/ssebowaIcon.png" />
               </div>
               <TooltipTrigger>
                 {(startupConfig?.showBirthdayIcon ?? false) && (

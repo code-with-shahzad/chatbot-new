@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 // import type { TMessage } from 'librechat-data-provider';
 import ScrollToBottom from '~/components/Messages/ScrollToBottom';
@@ -8,13 +8,14 @@ import MultiMessage from './MultiMessage';
 import MessageContent from './Content/MessageContent';
 import { cn } from '~/utils';
 import { TypeAnimation } from 'react-type-animation';
+import { ChatDataContext } from '~/App';
 
 export default function MessagesView({
   messagesTree: _messagesTree,
   Header,
 }: {
   // messagesTree?: TMessage[] | null;
-  messagesTree?: [{ sentByUser: boolean; text: string }];
+  messagesTree?: [{ sentByUser: boolean; text: string; isImage: boolean }];
   Header?: ReactNode;
 }) {
   const { screenshotTargetRef } = useScreenshot();
@@ -29,6 +30,7 @@ export default function MessagesView({
     debouncedHandleScroll,
   } = useMessageScrolling(_messagesTree);
   const { conversationId } = conversation ?? {};
+  const { isLoading } = useContext(ChatDataContext);
 
   return (
     <div className="flex-1 overflow-hidden overflow-y-auto">
@@ -73,13 +75,33 @@ export default function MessagesView({
                                 <div>
                                   <div className="pt-0.5">
                                     <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full">
-                                      <img
-                                        src={
-                                          item?.sentByUser
-                                            ? '../../../../public/assets/usericon.png'
-                                            : '../../../../public/assets/chatgpticon.webp'
-                                        }
-                                      />
+                                      {item?.sentByUser ? (
+                                        <div
+                                          className="relative flex h-9 w-9 items-center justify-center rounded-full p-1 text-white"
+                                          style={{
+                                            backgroundColor: 'rgb(121, 137, 255)',
+                                            width: '28px',
+                                            height: '28px',
+                                          }}
+                                        >
+                                          <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                          >
+                                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                          </svg>
+                                        </div>
+                                      ) : (
+                                        <img src={'../../../../public/assets/ssebowaIcon.png'} />
+                                      )}
                                     </div>
                                   </div>
                                 </div>
@@ -91,20 +113,26 @@ export default function MessagesView({
                                 )}
                               >
                                 <div className="select-none font-semibold">
-                                  {item?.sentByUser ? 'You' : 'Chatbot'}
+                                  {item?.sentByUser ? 'You' : 'SsebowaAI'}
                                 </div>
                                 <div className="flex-col gap-1 md:gap-3">
                                   <div className="flex max-w-full flex-grow flex-col gap-0">
-                                    {!item?.sentByUser && idx == _messagesTree?.length-1 ? (
+                                    {item?.isImage ? (
+                                      <img
+                                        src={item?.text}
+                                        className="mt-2 max-h-[500px] rounded"
+                                      />
+                                    ) : !item?.sentByUser && idx == _messagesTree?.length - 1 ? (
                                       <TypeAnimation
                                         splitter={(str) => str.split(/(?= )/)}
                                         sequence={[item?.text, 3000, item?.text]}
+                                        style={{ whiteSpace: 'pre-wrap' }}
                                         speed={{ type: 'keyStrokeDelayInMs', value: 30 }}
                                         repeat={0}
-                                        cursor={false}
+                                        cursor={isLoading}
                                       />
                                     ) : (
-                                      item?.text
+                                      <div style={{ whiteSpace: 'pre-wrap' }}>{item?.text}</div>
                                     )}
                                   </div>
                                 </div>

@@ -53,7 +53,7 @@ librechat.yaml
 
 # Environment
 .npmrc
-.env*
+# .env*
 my.secrets
 !**/.env.example
 !**/.env.test.example

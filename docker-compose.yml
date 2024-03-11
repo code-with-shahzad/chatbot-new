@@ -10,7 +10,9 @@ services:
       - "${PORT}:${PORT}"
     depends_on:
       - mongodb
-    image: ghcr.io/danny-avila/librechat-dev:latest
+    build:
+      context: .
+      target: node   # Specify the path to your Dockerfile if it's not in the root directory
     restart: always
     user: "${UID}:${GID}"
     extra_hosts:

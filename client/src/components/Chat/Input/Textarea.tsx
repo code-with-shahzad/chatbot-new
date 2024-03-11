@@ -32,6 +32,7 @@ export default function Textarea({
   return (
     <TextareaAutosize
       ref={textAreaRef}
+      placeholder="Message"
       autoFocus
       value={value}
       disabled={!!disabled}

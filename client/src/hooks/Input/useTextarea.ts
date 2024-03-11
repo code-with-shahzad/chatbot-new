@@ -95,7 +95,8 @@ export default function useTextarea({
           ? getAssistantName({ name: assistantName, localize })
           : getSender(conversation as TEndpointOption);
 
-      return `${localize('com_endpoint_message')} ${sender ? sender : 'ChatGPT'}…`;
+      // return `${localize('com_endpoint_message')} ${sender ? sender : 'ChatGPT'}…`;
+      return `${localize('com_endpoint_message')}…`;
     };
 
     const placeholder = getPlaceholderText();

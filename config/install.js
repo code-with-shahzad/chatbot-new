@@ -64,7 +64,7 @@ let env = {};
 
   // Ask for the app title
   const title = await askQuestion('Enter the app title (default: "LibreChat"): ');
-  env['APP_TITLE'] = title || 'LibreChat';
+  env['APP_TITLE'] = title || 'SsebowaAI';
 
   // Ask for OPENAI_API_KEY
   const key = await askQuestion('Enter your OPENAI_API_KEY (default: "user_provided"): ');

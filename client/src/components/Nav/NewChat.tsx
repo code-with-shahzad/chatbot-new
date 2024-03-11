@@ -55,7 +55,7 @@ export default function NewChat({
             >
               <div className="h-7 w-7 flex-shrink-0">
                 <div className="shadow-stroke relative flex h-full items-center justify-center rounded-full bg-white text-black dark:bg-white">
-                  {endpoint &&
+                  {/* {endpoint &&
                     Icon &&
                     Icon({
                       size: 41,
@@ -63,7 +63,8 @@ export default function NewChat({
                       className: 'h-2/3 w-2/3',
                       endpoint: endpoint,
                       iconURL: iconURL,
-                    })}
+                    })} */}
+                  <img className='h-[22px]' src="/assets/favicon.png" />
                 </div>
               </div>
               <div className="text-token-text-primary grow overflow-hidden text-ellipsis whitespace-nowrap text-sm">

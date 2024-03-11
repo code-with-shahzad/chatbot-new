@@ -29,8 +29,9 @@ export default function ChatForm({ index = 0 }) {
   const { submitChatMessage } = useContext(ChatDataContext);
   const sendMessage = async () => {
     // ask({ text });
-    submitChatMessage(text);
+    submitChatMessage({ text: text, files: files });
     setText('');
+    setFiles(new Map());
   };
 
   const { requiresKey } = useRequiresKey();
